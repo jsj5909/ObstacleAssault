@@ -16,8 +16,7 @@ void AMovingPlatform::BeginPlay()
 {
 	Super::BeginPlay();
 
-	//MyVector = FVector(-15250,-2630,4055);
-
+	StartLocation = GetActorLocation();
 	
 }
 
@@ -26,11 +25,14 @@ void AMovingPlatform::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	MyVector.Y += 1;
 
+	FVector CurrentLocation = GetActorLocation();
 
-	SetActorLocation(MyVector);
+	CurrentLocation = CurrentLocation + PlatformVelocity * DeltaTime;
 
+	SetActorLocation(CurrentLocation);
+
+	DistanceTravelled = FVector::Distance(CurrentLocation,StartLocation);
 
 }
 
